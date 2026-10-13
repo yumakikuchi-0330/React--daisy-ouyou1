@@ -4,14 +4,14 @@ import {
   Routes
 } from "react-router-dom";
 import List from './List';
+import Detail from './Detail';
 
 const AppRoutes = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_relativeSplatPath: true }}>
       <Routes>
-	      {/* 「/」にアクセスがあったときにHomeコンポーネントを表示 */}
-        {/* <Route path='/' element={<List />} /> */}
-        {/* <Route path='/users/:id' element={<Detail />} /> */}
+        <Route path='/' element={<List />} />
+        <Route path='/users/:userId' element={<Detail />} />
       </Routes>
     </BrowserRouter>
   )
