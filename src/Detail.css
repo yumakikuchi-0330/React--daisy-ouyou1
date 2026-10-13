@@ -1,4 +1,4 @@
-.Detail-main{
+.detail-main{
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -8,7 +8,7 @@
   background-color: #d3d3d3;
 }
 
-.Detail-List{
+.detail-List{
   padding: 30px;
   background-color: #ffffff;
   width: 300px;

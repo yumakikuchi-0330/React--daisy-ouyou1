@@ -8,17 +8,17 @@ type UserDetail = {
   name: string;
   email: string;
   phone: string;
-  address:
-  {
+  address: {
     street: string;
     suite: string;
     city: string;
   };
-  company:
-  {
+  company: {
     name: string;
   };
 };
+
+const USERS_API_URL = 'https://jsonplaceholder.typicode.com/users';
 
 function Detail(){
   const { userId } = useParams<{ userId: string }>();
@@ -26,16 +26,15 @@ function Detail(){
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     if (!userId) return;
-        const fetchList = async () => {
+    const fetchList = async () => {
       try {
-        const res = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
+        const res = await fetch(`${USERS_API_URL}/${userId}`);
         if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
+          throw new Error(`HTTP ${res.status}`);
         }
         const data = await res.json();
         setUsers(data);
       } catch (error) {
-        console.error('データの取得に失敗しました:', error);
         setError('ユーザーが見つかりませんでした');
       }
     };
@@ -46,9 +45,9 @@ function Detail(){
     return <div>読み込み中...</div>;
   }
   return (
-    <div className='Detail-main'>
+    <div className='detail-main'>
       <h2>ユーザーページ</h2>
-      <div className='Detail-List'>
+      <div className='detail-List'>
         <p>name: {users.name}</p>
         <p>email: {users.email}</p>
         <p>Phone: {users.phone}</p>

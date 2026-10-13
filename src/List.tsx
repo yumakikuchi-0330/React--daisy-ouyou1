@@ -8,6 +8,8 @@ export type User = {
   email: string;
 }
 
+const USERS_API_URL = 'https://jsonplaceholder.typicode.com/users';
+
 function List(){
   const [users, setUsers] = useState<User[]>([]);
   const [keyword, setKeyword] = useState<string>('');
@@ -15,7 +17,7 @@ function List(){
   useEffect(() => {
     const fetchList = async () => {
       try {
-        const res = await fetch('https://jsonplaceholder.typicode.com/users');
+        const res = await fetch(USERS_API_URL);
         const data = await res.json();
         setUsers(data);
       } catch (error) {
@@ -25,24 +27,23 @@ function List(){
     fetchList();
   }, []);
   if (error) return <div>{error}</div>;
-  const filterUsers = users.filter((user) => {
-    if (keyword === '') return true;
-    return user.name === keyword;
-  });
+  const filterUsers = keyword === ''
+    ? users
+    : users.filter((user) => user.name === keyword);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
   return (
     <div className='main'>
       <h2>ユーザー一覧</h2>
-        <div className='search'>
-          <input
-            type='text'
-            value={keyword}
-            onChange={handleChange}
-          />
-        </div>
-        <div className='card-list'>
+      <div className='search'>
+        <input
+          type='text'
+          value={keyword}
+          onChange={handleChange}
+        />
+      </div>
+      <div className='card-list'>
         <div className="card">
           {filterUsers.map((user) => (
             <Link to={`/users/${user.id}`} key={user.id}>
@@ -55,9 +56,9 @@ function List(){
                 </div>
               </div>
             </Link>
-            ))}
-          </div>
+          ))}
         </div>
+      </div>
     </div>
   );
 }
