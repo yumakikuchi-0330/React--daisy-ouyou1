@@ -11,6 +11,7 @@ export type User = {
 function List(){
   const [users, setUsers] = useState<User[]>([]);
   const [keyword, setKeyword] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     const fetchList = async () => {
       try {
@@ -18,11 +19,12 @@ function List(){
         const data = await res.json();
         setUsers(data);
       } catch (error) {
-        console.error('データの取得に失敗しました:', error);
+        setError('ユーザーが見つかりませんでした');
       }
     };
     fetchList();
   }, []);
+  if (error) return <div>{error}</div>;
   const filterUsers = users.filter((user) => {
     if (keyword === '') return true;
     return user.name === keyword;
