@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './Detail.css';
 
-
 type UserDetail = {
   id: number;
   name: string;
