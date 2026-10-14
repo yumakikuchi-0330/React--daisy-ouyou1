@@ -27,9 +27,8 @@ function List(){
     fetchList();
   }, []);
   if (error) return <div>{error}</div>;
-  const filterUsers = keyword === ''
-    ? users
-    : users.filter((user) => user.name === keyword);
+  const filterUsers = users.filter((user) =>
+    user.name.includes(keyword));
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };

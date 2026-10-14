@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './Detail.css';
 
+type UserInfoProps = {
+  user: UserDetail;
+};
+
 type UserDetail = {
   id: number;
   name: string;
@@ -18,6 +22,18 @@ type UserDetail = {
 };
 
 const USERS_API_URL = 'https://jsonplaceholder.typicode.com/users';
+
+function UserInfo({ user }: UserInfoProps) {
+  return (
+    <div className='detail-List'>
+      <p>name: {user.name}</p>
+      <p>email: {user.email}</p>
+      <p>Phone: {user.phone}</p>
+      <p>Address: {user.address.street}, {user.address.suite}, {user.address.city}</p>
+      <p>company: {user.company.name}</p>
+    </div>
+  );
+}
 
 function Detail(){
   const { userId } = useParams<{ userId: string }>();
@@ -46,13 +62,7 @@ function Detail(){
   return (
     <div className='detail-main'>
       <h2>ユーザーページ</h2>
-      <div className='detail-List'>
-        <p>name: {users.name}</p>
-        <p>email: {users.email}</p>
-        <p>Phone: {users.phone}</p>
-        <p>Address: {users.address.street}, {users.address.suite}, {users.address.city}</p>
-        <p>city: {users.company.name}</p>
-      </div>
+      <UserInfo user={users} />
     </div>
   );
 }
