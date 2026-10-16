@@ -1,26 +1,33 @@
-/* .Headder {
-  text-align: center;
-}
-
-.List-item{
-  width: 200px;
-  height: 150px;
-}
-
-.icon {
-  width: 100px;
-  height: 60px;
-}
-
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main{
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
+  flex-direction: column;
+  gap: 30px;
+}
 
+.card-text {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 10px;
+  border: 1px solid #000;
+}
+
+.card-list{
+  display: flex;
+  flex-direction: row;
+  height: 150px;
+  width: 500px;
+}
+
+.card{
+  height: 150px;
+  width: 500px;
+}
+
+.icon{
+  margin: 10px;
+  height: 50px;
+  width: 50px;
+  background-color: #d3d3d3;
+}

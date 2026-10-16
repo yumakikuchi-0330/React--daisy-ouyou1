@@ -1,25 +1,64 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-// import  from './';
+import { Link } from 'react-router-dom'
 
-type UserProps = {
+export type User = {
   id: number;
-  username: string;
+  name: string;
   email: string;
 }
 
+const USERS_API_URL = 'https://jsonplaceholder.typicode.com/users';
+
 function List(){
-  const [ users, setUsers] = useState([])
-useEffect(() => {
-  const fetchList = async () => {
-    const res = await fetch('https://jsonplaceholder.typicode.com/users');
-    const data = await res.json();
-    setUsers(data);
+  const [users, setUsers] = useState<User[]>([]);
+  const [keyword, setKeyword] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    const fetchList = async () => {
+      try {
+        const res = await fetch(USERS_API_URL);
+        const data = await res.json();
+        setUsers(data);
+      } catch (error) {
+        setError('ユーザーが見つかりませんでした');
+      }
+    };
+    fetchList();
+  }, []);
+  if (error) return <div>{error}</div>;
+  const filterUsers = users.filter((user) =>
+    user.name.includes(keyword));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
   };
-  fetchList();
-})
   return (
-    <div></div>
+    <div className='main'>
+      <h2>ユーザー一覧</h2>
+      <div className='search'>
+        <input
+          type='text'
+          value={keyword}
+          onChange={handleChange}
+        />
+      </div>
+      <div className='card-list'>
+        <div className="card">
+          {filterUsers.map((user) => (
+            <Link to={`/users/${user.id}`} key={user.id}>
+              <div  className="card-text">
+                <div className="icon"></div>
+                <div>
+                  <p>id: {user.id}</p>
+                  <p>{user.name}</p>
+                  <p>{user.email}</p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
